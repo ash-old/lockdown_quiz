@@ -6,6 +6,19 @@ import AnswerOption from './components/AnswerOption';
 
 
 function Quiz(props) {
+    function renderAnswerOptions(key) {
+        return (
+            <AnswerOption
+                key={key.content}
+                answerContent={key.content}
+                answerType={key.type}
+                answer={props.answer}
+                questionId={props.questionId}
+                onAnswerSelected={props.onAnswerSelected}
+                />
+        );
+    } 
+
     return (
         <div classNAme="quiz">
             <QuestionCount
