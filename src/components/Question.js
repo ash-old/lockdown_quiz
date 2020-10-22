@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 function Question(props) {
 
@@ -7,9 +8,9 @@ function Question(props) {
     );
 } 
 
-Question.PropTypes = {
+Question.propTypes = {
 
-    content: React.PropTypes.string.isRequired
+    content: PropTypes.string.isRequired
 
 };
 
