@@ -1,6 +1,21 @@
 import React from 'react';
 import Question from "./components/Question";
 import './App.css';
+import PropType from 'prop-types';
+
+constructor(props) {
+  super(props);
+
+  this.state = {
+    counter: 0,
+    questionId: 1,
+    question: "",
+    answerOptions: [],
+    answer: "",
+    answersCount: {},
+    result: ""
+  };
+}
 
 function App() {
   return (
