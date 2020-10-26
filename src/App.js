@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import Question from "./components/Question";
+//import Question from "./components/Question";
 import './App.css';
-import PropType, { array } from 'prop-types';
+//import PropType, { array } from 'prop-types';
 import quizQuestions from './api/quizQuestions';
-import { render } from '@testing-library/react';
+//import { render } from '@testing-library/react';
 import Quiz from './components/Quiz';
 import logo from './art/logo.svg';
+import Result from './components/Result';
+
 
 class App extends Component{
 constructor(props) {
@@ -52,7 +54,7 @@ setUserAnswer(answer) {
   this.setState((state, props) => ({
     answersCount: {
       ...state.answersCount,
-      [answer]: (state.answerCount[answer] || 0) + 1
+      [answer]: (state.answersCount[answer] || 0) + 1
     },
     answer: answer
   }));
@@ -96,6 +98,25 @@ setResults(result) {
   }
 }
 
+renderQuiz() {
+  return(
+    <Quiz
+      answer={this.state.answer}
+      answerOptions={this.state.answerOptions}
+      questionId={this.state.questionId}
+      question={this.state.question}
+      questionTotal={quizQuestions.length}
+      onAnswerSelected={this.handleAnswerSelected}
+    />
+  );
+}
+
+renderResult() {
+  return (
+    <Result quizResult={this.state.result} />
+  );
+}
+
 render() {
   return (
     <div className="App">
@@ -103,14 +124,7 @@ render() {
       <img src={logo} className="App-logo" alt="logo" />
         <h2>Lockdown Quiz</h2>
       </div>
-      <Quiz
-        answer={this.state.answer}
-        answerOptions={this.state.answerOptions}
-        questionId={this.state.questionId}
-        question={this.state.question}
-        questionTotal={this.handleAnswerSelected}
-        onAnswerSelected={this.handleAnswerSelected}
-      />
+      {this.state.result ? this.renderResult() : this.renderQuiz()}
     </div>
   );
 }
