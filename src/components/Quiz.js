@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Question from './components/Question';
-import QuestionCount from './components/QuestionCount';
-import AnswerOption from './components/AnswerOption';
+import Question from '../components/Question';
+import QuestionCount from '../components/QuestionCount';
+import AnswerOption from '../components/AnswerOption';
 
 
 function Quiz(props) {
@@ -20,7 +20,7 @@ function Quiz(props) {
     } 
 
     return (
-        <div classNAme="quiz">
+        <div className="quiz">
             <QuestionCount
                 counter={props.questionId}
                 total={props.questionTotal}

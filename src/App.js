@@ -4,7 +4,8 @@ import './App.css';
 import PropType, { array } from 'prop-types';
 import quizQuestions from './api/quizQuestions';
 import { render } from '@testing-library/react';
-// import logo from '../public/logo';
+import Quiz from './components/Quiz';
+import logo from './art/logo.svg';
 
 class App extends Component{
 constructor(props) {
@@ -19,6 +20,7 @@ constructor(props) {
     answersCount: {},
     result: ""
   };
+  this.handleAnswerSelected = this.handleAnswerSelected.bind(this);
 }
 
 componentDidMount() {
@@ -46,14 +48,52 @@ shuffleArray(array) {
   return array;
 };
 
+setUserAnswer(answer) {
+  this.setState((state) => ({
+    answersCount: {
+      ...state.answersCount,
+      [answer]: (state.answerCount[answer] || 0) + 1
+    },
+    answer: answer
+  }));
+}
+
+setNextQuestion() {
+  const counter = this.state.counter + 1;
+  const questionId = this.state.questionId + 1;
+  this.setState({
+    counter: counter,
+    questionId: questionId,
+    question: quizQuestions[counter].question,
+    answerOptions: quizQuestions[counter].answers,
+    answer: ''
+  });
+}
+
+handleAnswerSelected(event) {
+  this.setUserAnswer(event.currentTarget.value);
+  if(this.state.questionId < quizQuestions.length) {
+    setTimeout(() => this.setNextQuestion(), 300);
+  } else {
+
+  }
+}
+
 render() {
   return (
     <div className="App">
       <div className="App-header">
-      {/* <img src={logo} className="App-logo" alt=logo /> */}
+      <img src={logo} className="App-logo" alt="logo" />
         <h2>Lockdown Quiz</h2>
       </div>
-      <Question content="What is your favourite food?" />
+      <Quiz
+        answer={this.state.answer}
+        answerOptions={this.state.answerOptions}
+        questionId={this.state.questionId}
+        question={this.state.question}
+        questionTotal={this.handleAnswerSelected}
+        onAnswerSelected={this.handleAnswerSelected}
+      />
     </div>
   );
 }
